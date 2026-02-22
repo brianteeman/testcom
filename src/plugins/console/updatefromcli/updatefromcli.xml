@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" group="console" method="upgrade">
+    <name>PLG_CONSOLE_UPDATEFROMCLI</name>
+    <author>Alikon</author>
+    <creationDate>2026-01</creationDate>
+    <copyright>(C) 2007 Alikonweb</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <authorEmail>alikon@alikonweb.it</authorEmail>
+    <authorUrl>www.alikonweb.it</authorUrl>
+    <version>1.0.0</version>
+    <description>Console plugin for update extensions from CLI commands</description>
+
+    <!-- Correct namespace per Joomla docs -->
+    <namespace path="src">Joomla\Plugin\Console\Updatefromcli</namespace>
+
+    <files>
+        <!-- Services directory must be included -->
+        <folder plugin="updatefromcli">services</folder>
+        <!-- src directory for your plugin code -->
+        <folder>src</folder>
+    </files>
+</extension>
+
+
