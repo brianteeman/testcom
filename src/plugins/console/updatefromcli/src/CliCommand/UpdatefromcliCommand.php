@@ -124,11 +124,11 @@ final class UpdatefromcliCommand extends AbstractCommand
      *
      * @since __DEPLOY_VERSION__
      */
-    protected function getExtensionInfo($extensions): array
+    protected function getExtensionInfo(array $extensions): array
     {
         $extInfo = [];
 
-        foreach ($extensions as $key => $extension) {
+        foreach ($extensions as $extension) {
             $extInfo[] = [
                 $extension->extension_id,
                 $extension->name,
