@@ -11,20 +11,20 @@ use Joomla\Plugin\Console\Updatefromcli\Extension\UpdatefromcliConsolePlugin;
 
 return new class implements ServiceProviderInterface
 {
-    public function register(Container $container)
+    public function register(Container $container) : void
     {
         $container->set(
             PluginInterface::class,
             function (Container $container) {
-                $dispatcher = $container->get(DispatcherInterface::class);
+                // Get plugin configuration from database
+                $config = (array) PluginHelper::getPlugin('console', 'updatefromcli');
 
-                $plugin = new UpdatefromcliConsolePlugin(
-                    $dispatcher,
-                    (array) PluginHelper::getPlugin('console', 'updatefromcli')
-                );
+                // Get event dispatcher for plugin events
+                $subject = $container->get(DispatcherInterface::class);
 
+                // Create plugin instance with dependencies
+                $plugin = new UpdatefromcliConsolePlugin($subject, $config);
                 $plugin->setApplication(Factory::getApplication());
-
                 return $plugin;
             }
         );

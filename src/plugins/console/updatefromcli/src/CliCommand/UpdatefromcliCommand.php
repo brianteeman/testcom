@@ -1,6 +1,8 @@
 <?php
 namespace Joomla\Plugin\Console\Updatefromcli\CliCommand;
 
+use Joomla\CMS\Factory;
+use Joomla\Database\DatabaseInterface;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Updater\Updater;
 use Joomla\Console\Command\AbstractCommand;
@@ -45,6 +47,21 @@ final class UpdatefromcliCommand extends AbstractCommand
         $symfonyStyle->title('Extension Updates');
 
         if ($eid = $input->getOption('eid')) {
+            $db = Factory::getContainer()->get(DatabaseInterface::class);
+            // Validate extension exists
+            $db = Factory::getContainer()->get('DatabaseDriver');
+            $query = $db->getQuery(true)
+                ->select('COUNT(*)')
+                ->from($db->quoteName('#__extensions'))
+                ->where($db->quoteName('extension_id') . ' = :eid')
+                ->bind(':eid', $eid, \Joomla\Database\ParameterType::INTEGER);
+
+            $db->setQuery($query);
+
+            if (!(int) $db->loadResult()) {
+                $symfonyStyle->error('Extension ID not found');
+                return Command::FAILURE;
+            }
             // Find updates.
             /** @var UpdateModel $model */
             $model = $this->getApplication()->bootComponent('com_installer')
@@ -73,6 +90,10 @@ final class UpdatefromcliCommand extends AbstractCommand
             $extensions = $this->getExtensionInfo($update);
             $symfonyStyle->table(['Extension ID', 'Name', 'Location', 'Type', 'Installed','Available', 'Folder'], $extensions);
 
+            // Load com_installer's language
+            $language = $this->getApplication()->getLanguage();
+            $language->load('com_installer', JPATH_ADMINISTRATOR, 'en-GB', false, true);
+            $language->load('com_installer', JPATH_ADMINISTRATOR, null, true);
             // Get the minimum stability.
             $params            = ComponentHelper::getComponent('com_installer')->getParams();
             $minimum_stability = (int) $params->get('minimum_stability', Updater::STABILITY_STABLE);
