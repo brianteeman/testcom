@@ -159,6 +159,7 @@
 		</downloads>
 		<tags><tag>stable</tag></tags>
 		<sha256>bcd88dd5d731c0870dde45b283622a56c0c13215eb2d830e7e21fbd8efa71c83</sha256>
-		<targetplatform name="joomla" version="((4\.[01234])|(5\.[01234]))" />
+		<targetplatform name="joomla" version="((4\.[01234])|(5\.[01234])|(6\.[01234]))" />
 	</update>
 </updates>
+
