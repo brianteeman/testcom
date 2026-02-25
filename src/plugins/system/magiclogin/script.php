@@ -198,7 +198,7 @@ return new class () implements ServiceProviderInterface {
                     return true;
                 }
                 /**
-                 * Create the #__jo_safemode table.
+                 * Create the #__magiclogin_tokens.
                  *
                  * @return void
                  */
@@ -268,7 +268,7 @@ return new class () implements ServiceProviderInterface {
                             $db->execute();
 
                         }
-                        $templateId   = 'plg_system_magiclogin.magiclink';
+                        $templateId  = 'plg_system_magiclogin.magiclink';
                         $extension   = 'plg_system_magiclogin';
                         $language    = '';
                         $subject     = 'PLG_SYSTEM_MAGICLOGIN_EMAIL_SUBJECT';
