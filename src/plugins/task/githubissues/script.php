@@ -247,7 +247,7 @@ return new class () implements ServiceProviderInterface {
                                           PRIMARY KEY (`id`),
                                           KEY `idx_execution` (`execution`)
                                         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
-
+                            }
                             $db->setQuery($query);
                             $db->execute();
 
