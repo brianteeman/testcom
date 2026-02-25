@@ -263,10 +263,9 @@ return new class () implements ServiceProviderInterface {
                                           KEY `expires` (`expires`),
                                           KEY `ip_address` (`ip_address`)
                                         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
+                                $db->setQuery($query);
+                                $db->execute();
                             }
-                            $db->setQuery($query);
-                            $db->execute();
-
                         }
                         $templateId  = 'plg_system_magiclogin.magiclink';
                         $extension   = 'plg_system_magiclogin';
