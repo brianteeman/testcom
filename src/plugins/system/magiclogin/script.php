@@ -233,13 +233,21 @@ return new class () implements ServiceProviderInterface {
                                         "ip_address" VARCHAR(45),
                                         "user_agent" TEXT,
                                         CONSTRAINT "uq_magiclogin_tokens_token" UNIQUE ("token")
-                                    );
-                                    CREATE INDEX IF NOT EXISTS "idx_magiclogin_tokens_user_id" 
-                                        ON "magiclogin_tokens" ("user_id");
-                                    CREATE INDEX IF NOT EXISTS "idx_magiclogin_tokens_expires" 
-                                        ON "magiclogin_tokens" ("expires");
-                                    CREATE INDEX IF NOT EXISTS "idx_magiclogin_tokens_ip_address" 
-                                        ON "magiclogin_tokens" ("ip_address");';
+                                    );';
+                                $db->setQuery($query);
+                                $db->execute();    
+                                $query = 'CREATE INDEX IF NOT EXISTS "idx_magiclogin_tokens_user_id" 
+                                            ON "#__magiclogin_tokens" ("user_id");';
+                                $db->setQuery($query);
+                                $db->execute();            
+                                $query = 'CREATE INDEX IF NOT EXISTS "idx_magiclogin_tokens_expires" 
+                                            ON "#__magiclogin_tokens" ("expires");';
+                                $db->setQuery($query);
+                                $db->execute(); 
+                                $query = 'CREATE INDEX IF NOT EXISTS "idx_magiclogin_tokens_ip_address" 
+                                            ON "#__magiclogin_tokens" ("ip_address");';
+                                $db->setQuery($query);
+                                $db->execute(); 
                             } else {  
                                 $query = 'CREATE TABLE IF NOT EXISTS `#__magiclogin_tokens` (
                                           `id` int(11) NOT NULL AUTO_INCREMENT,

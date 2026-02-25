@@ -225,16 +225,21 @@ return new class () implements ServiceProviderInterface {
 
                         if (!$tableExists) {
                             if ($db->getServerType() === 'postgresql') {
-                                 $query = 'CREATE TABLE IF NOT EXISTS "#__github_issues" (
+                                $query = 'CREATE TABLE IF NOT EXISTS "#__github_issues" (
                                         "id" SERIAL PRIMARY KEY,
                                         "execution" TIMESTAMP DEFAULT NULL,
                                         "openi" SMALLINT NOT NULL DEFAULT 0,
                                         "closedi" SMALLINT NOT NULL DEFAULT 0,
                                         "openp" SMALLINT NOT NULL DEFAULT 0,
                                         "closedp" SMALLINT NOT NULL DEFAULT 0
-                                    );
-                                    CREATE INDEX IF NOT EXISTS "idx_execution" 
+                                    );';
+                                $db->setQuery($query);
+                                $db->execute();
+
+                                $query ='CREATE INDEX IF NOT EXISTS "idx_execution" 
                                     ON "#__github_issues" ("execution");';
+                                $db->setQuery($query);
+                                $db->execute();
                             } else {     
                                 // Create the #__github_issues table 
                                 $query = 'CREATE TABLE IF NOT EXISTS `#__github_issues` (
@@ -247,10 +252,9 @@ return new class () implements ServiceProviderInterface {
                                           PRIMARY KEY (`id`),
                                           KEY `idx_execution` (`execution`)
                                         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;';
-                            }
-                            $db->setQuery($query);
-                            $db->execute();
-
+                                $db->setQuery($query);
+                                $db->execute();
+                            }                            
                         }
                     } catch (\Exception $e) {
                         Factory::getApplication()->enqueueMessage('Error creating #__github_issues table: ' . $e->getMessage(), 'error');
