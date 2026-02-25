@@ -3,6 +3,8 @@
     <name>MOD_GITHUB_PORTFOLIO</name>
     <author>Alikon</author>
     <creationDate>2025-12-01</creationDate>
+    <copyright>Copyright (C) 2021 Alikon. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
     <version>1.0.0</version>
     <description>MOD_GITHUB_PORTFOLIO_XML_DESCRIPTION</description>
     <namespace path="src">Joomla\Module\GithubPortfolio</namespace>
